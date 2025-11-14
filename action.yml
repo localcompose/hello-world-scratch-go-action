@@ -1,0 +1,29 @@
+name: 'Hello World Scratch Go Action'
+description: 'A template to demonstrate how to build a Go action from a scratch Docker image'
+author: 'localcompose'
+branding:
+  icon: 'underline'
+  color: 'blue'
+
+inputs:
+  preposition:
+    description: 'Preposition to specify the world'
+    required: false
+    default: 'at'
+  noun:
+    description: 'Noun to specify the world'
+    required: false
+    default: 'GitHub'
+
+outputs:
+  argsOutput:
+    description: "CLI argument passed to the action"
+  envOutput:
+    description: "HELLO_WORLD environment variable value"
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.preposition }}
+    - ${{ inputs.noun }}
