@@ -1,0 +1,29 @@
+name: Integration Test
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Hello World Action
+        id: selftest
+        uses: ./          # Use the current repo
+
+        with:
+          preposition: "under"
+          noun: "Test"
+
+        env:
+          HELLO_WORLD: "The world of env"
+          HELLO_EXTRA: "Extra env"
+
+      - run: |
+          echo "CLI arg output: ${{ steps.selftest.outputs.argsOutput }}"
+          echo "HELLO_WORLD output: ${{ steps.selftest.outputs.envOutput }}"
+
+      - name: Check output
+        run: |
+          echo "Integration test passed (inspect logs above)"
